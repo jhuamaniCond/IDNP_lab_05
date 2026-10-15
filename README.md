@@ -8,3 +8,19 @@ páginas y descripción del apunte, con los botones Limpiar y Publicar.
 
 - Kotlin + Jetpack Compose + Material 3 (`compileSdk` 37, `minSdk` 24).
 - Abrir con Android Studio y ejecutar la configuración `app`.
+
+## Integrante 2: estado y validación
+
+Los cinco campos tienen estado independiente, conservado con `rememberSaveable`.
+Título y curso son obligatorios; semana y páginas deben ser enteros positivos.
+Descripción es opcional. `estado.errores` y `estado.esValido` están disponibles
+para conectar la retroalimentación y el bloqueo de la acción principal.
+
+El texto para los puntos 3 y 4 del informe y las indicaciones de integración
+están en [docs/integrante-2.md](docs/integrante-2.md).
+
+Verificar con `./gradlew.bat :app:testDebugUnitTest :app:assembleDebug`.
+Con un dispositivo o emulador conectado, ejecutar
+`./gradlew.bat :app:connectedDebugAndroidTest` para comprobar la independencia
+de los campos y su restauración al recrear la actividad.
+Los resultados y las capturas están descritos en [docs/VERIFICACION.md](docs/VERIFICACION.md).
