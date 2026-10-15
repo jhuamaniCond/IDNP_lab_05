@@ -8,12 +8,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import com.unsa.lab05formulario.ui.FormularioApunte
+import com.unsa.lab05formulario.ui.EstadoFormularioApunte
 import com.unsa.lab05formulario.ui.theme.Lab05FormularioTheme
 
 class MainActivity : ComponentActivity() {
@@ -33,25 +31,22 @@ class MainActivity : ComponentActivity() {
 /**
  * Conecta el formulario con sus datos.
  *
- * PROVISIONAL: estado mínimo para poder escribir en los campos. La definición
- * del estado de los campos (punto 3), la validación (puntos 4 a 6) y el
- * comportamiento de Limpiar/Publicar (punto 7) se completan sobre este
- * composable.
+ * El estado independiente y las reglas de validación pertenecen al integrante 2.
+ * estado.errores y estado.esValido quedan disponibles para la retroalimentación
+ * y el bloqueo de Publicar (integrante 3). Los botones los conecta el integrante 4.
  */
 @Composable
 fun PantallaSubirApunte(modifier: Modifier = Modifier) {
-    var titulo by remember { mutableStateOf("") }
-    var curso by remember { mutableStateOf("") }
-    var semana by remember { mutableStateOf("") }
-    var paginas by remember { mutableStateOf("") }
-    var descripcion by remember { mutableStateOf("") }
+    val estado = rememberSaveable(saver = EstadoFormularioApunte.Saver) {
+        EstadoFormularioApunte()
+    }
 
     FormularioApunte(
-        titulo = titulo, onTituloChange = { titulo = it },
-        curso = curso, onCursoChange = { curso = it },
-        semana = semana, onSemanaChange = { semana = it },
-        paginas = paginas, onPaginasChange = { paginas = it },
-        descripcion = descripcion, onDescripcionChange = { descripcion = it },
+        titulo = estado.titulo, onTituloChange = { estado.titulo = it },
+        curso = estado.curso, onCursoChange = { estado.curso = it },
+        semana = estado.semana, onSemanaChange = { estado.semana = it },
+        paginas = estado.paginas, onPaginasChange = { estado.paginas = it },
+        descripcion = estado.descripcion, onDescripcionChange = { estado.descripcion = it },
         onLimpiar = {},
         onPublicar = {},
         modifier = modifier,
