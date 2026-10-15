@@ -62,6 +62,8 @@ fun FormularioApunte(
     onLimpiar: () -> Unit,
     onPublicar: () -> Unit,
     modifier: Modifier = Modifier,
+    errores: ErroresApunte = ErroresApunte(),
+    esValido: Boolean = true,
 ) {
     Column(
         modifier = modifier
@@ -79,6 +81,7 @@ fun FormularioApunte(
             onValueChange = onTituloChange,
             etiqueta = "Título del apunte",
             ejemplo = "Integración por partes",
+            error = errores.titulo,
             modifier = Modifier.fillMaxWidth(),
             teclado = KeyboardOptions(
                 capitalization = KeyboardCapitalization.Sentences,
@@ -90,6 +93,7 @@ fun FormularioApunte(
             onValueChange = onCursoChange,
             etiqueta = "Curso",
             ejemplo = "Cálculo II",
+            error = errores.curso,
             modifier = Modifier.fillMaxWidth(),
             teclado = KeyboardOptions(
                 capitalization = KeyboardCapitalization.Words,
@@ -105,6 +109,7 @@ fun FormularioApunte(
                 onValueChange = onSemanaChange,
                 etiqueta = "Semana",
                 ejemplo = "6",
+                error = errores.semana,
                 modifier = Modifier.weight(1f),
                 teclado = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
@@ -116,6 +121,7 @@ fun FormularioApunte(
                 onValueChange = onPaginasChange,
                 etiqueta = "N.º de páginas",
                 ejemplo = "14",
+                error = errores.paginas,
                 modifier = Modifier.weight(1f),
                 teclado = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
@@ -146,7 +152,11 @@ fun FormularioApunte(
             OutlinedButton(onClick = onLimpiar, modifier = Modifier.weight(1f)) {
                 Text("Limpiar")
             }
-            Button(onClick = onPublicar, modifier = Modifier.weight(1f)) {
+            Button(
+                onClick = onPublicar,
+                enabled = esValido,
+                modifier = Modifier.weight(1f),
+            ) {
                 Text("Publicar")
             }
         }

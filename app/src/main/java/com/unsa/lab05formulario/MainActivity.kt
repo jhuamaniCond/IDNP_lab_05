@@ -42,13 +42,32 @@ fun PantallaSubirApunte(modifier: Modifier = Modifier) {
     }
 
     FormularioApunte(
-        titulo = estado.titulo, onTituloChange = { estado.titulo = it },
-        curso = estado.curso, onCursoChange = { estado.curso = it },
-        semana = estado.semana, onSemanaChange = { estado.semana = it },
-        paginas = estado.paginas, onPaginasChange = { estado.paginas = it },
-        descripcion = estado.descripcion, onDescripcionChange = { estado.descripcion = it },
+        titulo = estado.titulo,
+        onTituloChange = {
+            estado.titulo = it
+            estado.marcarTituloEditado()
+        },
+        curso = estado.curso,
+        onCursoChange = {
+            estado.curso = it
+            estado.marcarCursoEditado()
+        },
+        semana = estado.semana,
+        onSemanaChange = {
+            estado.semana = it
+            estado.marcarSemanaEditada()
+        },
+        paginas = estado.paginas,
+        onPaginasChange = {
+            estado.paginas = it
+            estado.marcarPaginasEditada()
+        },
+        descripcion = estado.descripcion,
+        onDescripcionChange = { estado.descripcion = it },
         onLimpiar = {},
-        onPublicar = {},
+        onPublicar = { estado.marcarIntentadoPublicar() },
         modifier = modifier,
+        errores = estado.erroresVisibles,
+        esValido = estado.esValido,
     )
 }

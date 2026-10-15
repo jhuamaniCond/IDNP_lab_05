@@ -25,6 +25,7 @@ fun CampoTexto(
     modifier: Modifier = Modifier,
     teclado: KeyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
     lineas: Int = 1,
+    error: String? = null,
 ) {
     OutlinedTextField(
         value = valor,
@@ -34,6 +35,8 @@ fun CampoTexto(
         singleLine = lineas == 1,
         minLines = lineas,
         keyboardOptions = teclado,
+        isError = error != null,
+        supportingText = error?.let { mensaje -> { Text(mensaje) } },
         modifier = modifier,
     )
 }
