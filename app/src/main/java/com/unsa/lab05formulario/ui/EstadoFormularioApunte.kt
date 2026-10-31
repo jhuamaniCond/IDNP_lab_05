@@ -52,9 +52,21 @@ class EstadoFormularioApunte(
     fun marcarTituloEditado() { tituloEditado = true }
     fun marcarCursoEditado() { cursoEditado = true }
     fun marcarSemanaEditada() { semanaEditada = true }
-    fun marcarPaginasEditada() { paginasEditada = true }
-    fun marcarIntentadoPublicar() { intentadoPublicar = true }
+    fun limpiar() {
+        /* Restablecer a cadenas vacias los campos. */
+        titulo = ""
+        curso = ""
+        semana = ""
+        paginas = ""
+        descripcion = ""
 
+        /* Restablecer a valores falso los estados de edicion de los campos. */
+        tituloEditado = false
+        cursoEditado = false
+        semanaEditada = false
+        paginasEditada = false
+        intentadoPublicar = false
+    }
     companion object {
         /** Guarda los textos y banderas ante la recreación de la actividad. */
         val Saver = listSaver<EstadoFormularioApunte, String>(
@@ -88,4 +100,7 @@ class EstadoFormularioApunte(
             },
         )
     }
+    fun marcarPaginasEditada() { paginasEditada = true }
+
+    fun marcarIntentadoPublicar() { intentadoPublicar = true }
 }

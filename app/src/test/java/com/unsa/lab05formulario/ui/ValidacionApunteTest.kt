@@ -77,7 +77,7 @@ class ValidacionNumericaTest(private val entrada: String, private val esperado: 
             arrayOf("1a", false),
             arrayOf("1 4", false),
             arrayOf("2147483648", false),
-            arrayOf("999999999999999999999999999999", false),
+            arrayOf("999999999999999999999999999999", false)
         )
     }
 }

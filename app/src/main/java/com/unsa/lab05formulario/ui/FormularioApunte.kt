@@ -149,7 +149,10 @@ fun FormularioApunte(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(Separacion),
         ) {
-            OutlinedButton(onClick = onLimpiar, modifier = Modifier.weight(1f)) {
+            OutlinedButton(
+                onClick = onLimpiar,
+                modifier = Modifier.weight(1f)
+            ) {
                 Text("Limpiar")
             }
             Button(

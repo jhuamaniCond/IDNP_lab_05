@@ -1,6 +1,7 @@
 package com.unsa.lab05formulario
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -10,6 +11,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import com.unsa.lab05formulario.ui.FormularioApunte
 import com.unsa.lab05formulario.ui.EstadoFormularioApunte
 import com.unsa.lab05formulario.ui.theme.Lab05FormularioTheme
@@ -40,6 +42,7 @@ fun PantallaSubirApunte(modifier: Modifier = Modifier) {
     val estado = rememberSaveable(saver = EstadoFormularioApunte.Saver) {
         EstadoFormularioApunte()
     }
+    val contexto = LocalContext.current
 
     FormularioApunte(
         titulo = estado.titulo,
@@ -64,8 +67,14 @@ fun PantallaSubirApunte(modifier: Modifier = Modifier) {
         },
         descripcion = estado.descripcion,
         onDescripcionChange = { estado.descripcion = it },
-        onLimpiar = {},
-        onPublicar = { estado.marcarIntentadoPublicar() },
+        onLimpiar = { estado.limpiar() },
+        onPublicar = {
+            estado.marcarIntentadoPublicar()
+            if (estado.esValido){
+                Toast.makeText(contexto, "Apunte publicado con Exito!", Toast.LENGTH_SHORT).show()
+                estado.limpiar() // Restablecer el formulario tras publicar
+            }
+        },
         modifier = modifier,
         errores = estado.erroresVisibles,
         esValido = estado.esValido,
